@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIDESGOP — Semillero de Investigación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde-principal:  #5A7A2E;
+      --verde-oscuro:     #3D5A1F;
+      --verde-claro:      #EBF2DE;
+      --naranja:          #D47A1A;
+      --naranja-claro:    #F5E6D0;
+      --gris-fondo:       #F4F4F4;
+      --gris-borde:       #DCDCDC;
+      --gris-texto:       #666666;
+      --texto-oscuro:     #222222;
+      --blanco:           #FFFFFF;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Open Sans', sans-serif; background: var(--gris-fondo); color: var(--texto-oscuro); line-height: 1.6; }
+    h1, h2, h3, h4 { font-family: 'Montserrat', sans-serif; line-height: 1.2; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .seccion { padding: 4rem 0; }
+    .seccion-blanca { background: var(--blanco); }
+    .seccion-verde-claro { background: var(--verde-claro); }
+    .titulo-seccion { font-size: 1.8rem; font-weight: 700; color: var(--verde-oscuro); margin-bottom: 0.5rem; }
+    .subtitulo-seccion { font-size: 1rem; color: var(--gris-texto); margin-bottom: 2.5rem; max-width: 600px; }
+    .etiqueta { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--naranja); margin-bottom: 0.5rem; font-family: 'Montserrat', sans-serif; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    @media (max-width: 768px) {
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-titulo { font-size: 2rem !important; }
+    }
+    .btn { display: inline-block; padding: 0.75rem 1.75rem; border-radius: 30px; font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; border: none; }
+    .btn-principal { background: var(--naranja); color: var(--blanco); }
+    .btn-principal:hover { background: #b8680f; transform: translateY(-2px); }
+    .btn-secundario { background: transparent; color: var(--verde-oscuro); border: 2px solid var(--verde-oscuro); }
+    .btn-secundario:hover { background: var(--verde-oscuro); color: var(--blanco); }
+    .btn-blanco { background: var(--blanco); color: var(--verde-oscuro); }
+    .btn-blanco:hover { background: var(--verde-claro); }
+    .card { background: var(--blanco); border: 1px solid var(--gris-borde); border-radius: 12px; padding: 1.5rem; transition: box-shadow 0.2s, transform 0.2s; }
+    .card:hover { box-shadow: 0 6px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
+    .card-icono { font-size: 2.2rem; margin-bottom: 1rem; }
+    .card h3 { font-size: 1.05rem; font-weight: 700; color: var(--verde-oscuro); margin-bottom: 0.5rem; }
+    .card p { font-size: 0.88rem; color: var(--gris-texto); line-height: 1.6; }
+    .tag { display: inline-block; background: var(--verde-claro); color: var(--verde-oscuro); font-size: 0.72rem; font-weight: 600; font-family: 'Montserrat', sans-serif; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 20px; }
+    .tag-naranja { background: var(--naranja-claro); color: var(--naranja); }
+    .stat-numero { font-family: 'Montserrat', sans-serif; font-size: 2.5rem; font-weight: 800; color: var(--naranja); line-height: 1; }
+    .stat-label { font-size: 0.82rem; color: var(--gris-texto); margin-top: 0.4rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; }
+    .divisor { width: 60px; height: 4px; background: var(--naranja); border-radius: 2px; margin-bottom: 1.5rem; }
+    .form-grupo { margin-bottom: 1.25rem; }
+    .form-label { display: block; font-size: 0.82rem; font-weight: 600; color: var(--texto-oscuro); margin-bottom: 0.4rem; font-family: 'Montserrat', sans-serif; }
+    .form-input { width: 100%; padding: 0.7rem 1rem; border: 1.5px solid var(--gris-borde); border-radius: 8px; font-family: 'Open Sans', sans-serif; font-size: 0.9rem; color: var(--texto-oscuro); background: var(--blanco); transition: border-color 0.2s; outline: none; }
+    .form-input:focus { border-color: var(--verde-principal); }
+    .form-input::placeholder { color: #aaa; }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--verde-principal), var(--verde-claro)); border-radius: 2px; }
+    .timeline-item { position: relative; padding-bottom: 2.5rem; }
+    .timeline-dot { position: absolute; left: -2.55rem; top: 0.3rem; width: 14px; height: 14px; border-radius: 50%; background: var(--naranja); border: 3px solid var(--blanco); box-shadow: 0 0 0 2px var(--naranja); }
+    .timeline-anio { font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--naranja); letter-spacing: 0.08em; margin-bottom: 0.25rem; }
+    .timeline-titulo { font-size: 1rem; font-weight: 700; color: var(--verde-oscuro); margin-bottom: 0.4rem; }
+    .timeline-texto { font-size: 0.88rem; color: var(--gris-texto); }
+  </style>
+</head>
+<body>
+
+
+<!-- ============================================================
+     NAVBAR — Sin logo, solo texto de marca
+     EDITAR: textos del menú
+============================================================ -->
+<header style="background: var(--blanco); border-bottom: 2px solid var(--verde-claro); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.06);">
+  <div class="container" style="display: flex; align-items: center; justify-content: space-between; padding-top: 0.85rem; padding-bottom: 0.85rem;">
+
+    <!-- MARCA TEXTUAL — reemplaza el logo -->
+    <a href="#inicio" style="display: flex; flex-direction: column; line-height: 1.1;">
+      <!-- EDITAR: nombre del semillero -->
+      <span style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--verde-oscuro); letter-spacing: -0.02em;">
+        SIDE<span style="color: var(--naranja);">SGOP</span>
+      </span>
+      <!-- EDITAR: subtexto institucional -->
+      <span style="font-family: 'Montserrat', sans-serif; font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris-texto);">
+        Semillero de Investigación · ECACEN · UNAD
+      </span>
+    </a>
+
+    <!-- MENÚ DE NAVEGACIÓN — edita los textos y los href -->
+    <nav>
+      <ul class="nav-links" style="display: flex; gap: 0.25rem; list-style: none; align-items: center;">
+        <li><a href="#inicio"       style="padding: 0.5rem 0.85rem; font-size: 0.85rem; font-weight: 600; color: var(--texto-oscuro); border-radius: 6px; font-family: 'Montserrat', sans-serif;" onmouseover="this.style.color='var(--verde-principal)'" onmouseout="this.style.color='var(--texto-oscuro)'">Inicio</a></li>
+        <li><a href="#nosotros"     style="padding: 0.5rem 0.85rem; font-size: 0.85rem; font-weight: 600; color: var(--texto-oscuro); border-radius: 6px; font-family: 'Montserrat', sans-serif;" onmouseover="this.style.color='var(--verde-principal)'" onmouseout="this.style.color='var(--texto-oscuro)'">Nosotros</a></li>
+        <li><a href="#lineas"       style="padding: 0.5rem 0.85rem; font-size: 0.85rem; font-weight: 600; color: var(--texto-oscuro); border-radius: 6px; font-family: 'Montserrat', sans-serif;" onmouseover="this.style.color='var(--verde-principal)'" onmouseout="this.style.color='var(--texto-oscuro)'">Líneas</a></li>
+        <li><a href="#proyectos"    style="padding: 0.5rem 0.85rem; font-size: 0.85rem; font-weight: 600; color: var(--texto-oscuro); border-radius: 6px; font-family: 'Montserrat', sans-serif;" onmouseover="this.style.color='var(--verde-principal)'" onmouseout="this.style.color='var(--texto-oscuro)'">Proyectos</a></li>
+        <li><a href="#blog"         style="padding: 0.5rem 0.85rem; font-size: 0.85rem; font-weight: 600; color: var(--texto-oscuro); border-radius: 6px; font-family: 'Montserrat', sans-serif;" onmouseover="this.style.color='var(--verde-principal)'" onmouseout="this.style.color='var(--texto-oscuro)'">Blog</a></li>
+        <li><a href="#convocatoria" class="btn btn-principal" style="margin-left: 0.5rem;">Únete →</a></li>
+      </ul>
+    </nav>
+
+  </div>
+</header>
+
+
+<!-- ============================================================
+     HERO
+     EDITAR: título, subtítulo, botones
+============================================================ -->
+<section id="inicio" style="background: linear-gradient(135deg, var(--verde-oscuro) 0%, var(--verde-principal) 100%); color: var(--blanco); padding: 5rem 0; position: relative; overflow: hidden;">
+  <div style="position:absolute;right:-80px;top:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,0.04);pointer-events:none;"></div>
+  <div style="position:absolute;left:-60px;bottom:-60px;width:300px;height:300px;border-radius:50%;background:rgba(212,122,26,0.1);pointer-events:none;"></div>
+  <div class="container">
+    <div style="max-width: 680px;">
+      <!-- EDITAR: etiqueta -->
+      <span class="etiqueta" style="color: var(--naranja-claro); background: rgba(212,122,26,0.2); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.75rem;">
+        Semillero de Investigación · ECACEN · UNAD
+      </span>
+      <!-- EDITAR: título -->
+      <h1 class="hero-titulo" style="font-size: 3rem; font-weight: 800; margin: 1rem 0 1.25rem; line-height: 1.1;">
+        Ciencia con rigor,<br>
+        <span style="color: var(--naranja);">narrativas con impacto.</span>
+      </h1>
+      <!-- EDITAR: descripción -->
+      <p style="font-size: 1.05rem; color: rgba(255,255,255,0.85); max-width: 560px; margin-bottom: 2rem; line-height: 1.7;">
+        SIDESGOP democratiza el conocimiento de las ciencias económicas.
+        Conectamos la investigación universitaria con la realidad territorial colombiana.
+      </p>
+      <!-- EDITAR: botones -->
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="#convocatoria" class="btn btn-principal">Únete al Semillero →</a>
+        <a href="#proyectos"    class="btn btn-blanco">Explora proyectos</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CIFRAS DE IMPACTO
+     EDITAR: números y etiquetas
+============================================================ -->
+<section class="seccion seccion-blanca">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <span class="etiqueta">Nuestro impacto</span>
+      <!-- EDITAR: título -->
+      <h2 class="titulo-seccion" style="text-align: center;">Lo que hemos logrado juntos</h2>
+    </div>
+    <div class="grid-4">
+      <!-- EDITAR: cada cifra -->
+      <div class="card" style="text-align: center;"><div class="stat-numero">24+</div><div class="stat-label">Integrantes activos</div></div>
+      <div class="card" style="text-align: center;"><div class="stat-numero">8</div><div class="stat-label">Proyectos en curso</div></div>
+      <div class="card" style="text-align: center;"><div class="stat-numero">37</div><div class="stat-label">Productos ASC</div></div>
+      <div class="card" style="text-align: center;"><div class="stat-numero">3</div><div class="stat-label">Años de trayectoria</div></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     NOSOTROS
+     EDITAR: misión, visión, timeline
+============================================================ -->
+<section id="nosotros" class="seccion seccion-verde-claro">
+  <div class="container">
+    <span class="etiqueta">Quiénes somos</span>
+    <!-- EDITAR: título -->
+    <h2 class="titulo-seccion">El nodo digital de ECACEN</h2>
+    <div class="divisor"></div>
+    <div class="grid-2" style="align-items: flex-start; gap: 3rem;">
+      <div>
+        <!-- EDITAR: descripción -->
+        <p style="font-size: 0.95rem; color: var(--gris-texto); margin-bottom: 2rem; line-height: 1.8;">
+          SIDESGOP es el semillero de investigación de la Escuela ECACEN de la UNAD.
+          Nuestro propósito es democratizar el conocimiento de las ciencias económicas
+          mediante investigación rigurosa y divulgación de impacto social.
+        </p>
+        <!-- EDITAR: misión -->
+        <div class="card" style="border-left: 4px solid var(--verde-principal); border-radius: 0 12px 12px 0; margin-bottom: 1rem;">
+          <div class="tag" style="margin-bottom: 0.5rem;">Misión</div>
+          <p style="font-size: 0.88rem; color: var(--gris-texto); margin-top: 0.5rem;">
+            Generar conocimiento científico en ciencias económicas con rigor académico
+            y apropiarlo socialmente para impactar territorios y comunidades colombianas.
+          </p>
+        </div>
+        <!-- EDITAR: visión -->
+        <div class="card" style="border-left: 4px solid var(--naranja); border-radius: 0 12px 12px 0;">
+          <div class="tag tag-naranja" style="margin-bottom: 0.5rem;">Visión</div>
+          <p style="font-size: 0.88rem; color: var(--gris-texto); margin-top: 0.5rem;">
+            Ser referente nacional en divulgación científica de ciencias económicas,
+            consolidando a ECACEN como líder en innovación académica para 2028.
+          </p>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--verde-oscuro); margin-bottom: 1.5rem;">Nuestra trayectoria</h3>
+        <div class="timeline">
+          <!-- EDITAR: cada hito del timeline -->
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-anio">2023</div>
+            <div class="timeline-titulo">Fundación de SIDESGOP</div>
+            <p class="timeline-texto">Nace el semillero bajo la tutela de ECACEN con los primeros 6 integrantes y el primer proyecto formulado.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-anio">2024</div>
+            <div class="timeline-titulo">Primer ciclo de productos ASC</div>
+            <p class="timeline-texto">Lanzamiento del Podcast POV. Participación en encuentros nacionales de semilleros.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-anio">2025</div>
+            <div class="timeline-titulo">Ecosistema Transmedia</div>
+            <p class="timeline-texto">Formulación del Plan Estratégico y diseño del Micrositio institucional SIDESGOP.</p>
+          </div>
+          <div class="timeline-item" style="padding-bottom: 0;">
+            <div class="timeline-dot" style="background: var(--verde-principal); box-shadow: 0 0 0 2px var(--verde-principal);"></div>
+            <div class="timeline-anio" style="color: var(--verde-principal);">2026 → Hoy</div>
+            <div class="timeline-titulo">Expansión y liderazgo</div>
+            <p class="timeline-texto">Consolidación como referente UNAD y meta de 1.000 visitantes mensuales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     LÍNEAS DE INVESTIGACIÓN
+     EDITAR: cada línea temática
+============================================================ -->
+<section id="lineas" class="seccion seccion-blanca">
+  <div class="container">
+    <span class="etiqueta">Áreas de trabajo</span>
+    <!-- EDITAR: título y subtítulo -->
+    <h2 class="titulo-seccion">Líneas de investigación</h2>
+    <p class="subtitulo-seccion">Exploramos las ciencias económicas desde cuatro frentes complementarios que conectan el rigor académico con el impacto territorial.</p>
+    <div class="grid-2">
+      <!-- EDITAR: cada card. Puedes agregar o quitar. -->
+      <div class="card" style="border-top: 3px solid var(--verde-principal);">
+        <div class="card-icono">🌍</div>
+        <h3>Economía y Territorio</h3>
+        <p>Análisis de las dinámicas económicas regionales, brechas territoriales y desarrollo local en contextos colombianos.</p>
+        <div style="margin-top: 1rem;"><span class="tag">Economía regional</span></div>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--naranja);">
+        <div class="card-icono">🏢</div>
+        <h3>Gestión Organizacional</h3>
+        <p>Estudio de modelos de gestión, innovación empresarial y competitividad en organizaciones públicas y privadas.</p>
+        <div style="margin-top: 1rem;"><span class="tag tag-naranja">Gestión</span></div>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--verde-principal);">
+        <div class="card-icono">🏛️</div>
+        <h3>Política Económica y Gobernanza</h3>
+        <p>Evaluación de políticas públicas, gobernanza institucional y su impacto en el bienestar de las comunidades.</p>
+        <div style="margin-top: 1rem;"><span class="tag">Política pública</span></div>
+      </div>
+      <div class="card" style="border-top: 3px solid var(--naranja);">
+        <div class="card-icono">📡</div>
+        <h3>Divulgación y ASC</h3>
+        <p>Apropiación Social del Conocimiento mediante formatos transmedia que conectan la ciencia con la ciudadanía.</p>
+        <div style="margin-top: 1rem;"><span class="tag tag-naranja">Divulgación</span></div>
+      </div>
+      <!-- AGREGAR MÁS: copia un bloque .card y pégalo aquí -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PROYECTOS
+     EDITAR: agrega, quita o modifica cada proyecto
+============================================================ -->
+<section id="proyectos" class="seccion seccion-verde-claro">
+  <div class="container">
+    <span class="etiqueta">Lo que construimos</span>
+    <h2 class="titulo-seccion">Proyectos de investigación</h2>
+    <p class="subtitulo-seccion">Investigaciones activas y finalizadas del semillero SIDESGOP.</p>
+    <div class="grid-3">
+      <!-- EDITAR: cada proyecto -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+          <span class="tag">En curso</span>
+          <span style="font-size: 0.75rem; color: var(--gris-texto);">2025 — 2026</span>
+        </div>
+        <h3>Brechas económicas regionales en Colombia</h3>
+        <p style="margin-top: 0.5rem;">Análisis de las asimetrías territoriales y su impacto en el acceso a oportunidades económicas en los 32 departamentos.</p>
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gris-borde);">
+          <span style="font-size: 0.78rem; color: var(--gris-texto);">👥 Línea: Economía y Territorio</span>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+          <span class="tag">En curso</span>
+          <span style="font-size: 0.75rem; color: var(--gris-texto);">2025 — 2026</span>
+        </div>
+        <h3>Microfinanzas rurales y acceso al crédito</h3>
+        <p style="margin-top: 0.5rem;">Estudio sobre el acceso a servicios financieros formales en comunidades campesinas del departamento del Huila.</p>
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gris-borde);">
+          <span style="font-size: 0.78rem; color: var(--gris-texto);">👥 Línea: Economía y Territorio</span>
+        </div>
+      </div>
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+          <span class="tag tag-naranja">Finalizado</span>
+          <span style="font-size: 0.75rem; color: var(--gris-texto);">2024</span>
+        </div>
+        <h3>Gobernanza digital en municipios intermedios</h3>
+        <p style="margin-top: 0.5rem;">Análisis de la adopción de herramientas digitales en la gestión pública de municipios de categoría 4 y 5 en Colombia.</p>
+        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--gris-borde);">
+          <span style="font-size: 0.78rem; color: var(--gris-texto);">👥 Línea: Política y Gobernanza</span>
+        </div>
+      </div>
+      <!-- AGREGAR MÁS: copia un bloque .card y pégalo aquí -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     BLOG
+     EDITAR: artículos
+============================================================ -->
+<section id="blog" class="seccion seccion-blanca">
+  <div class="container">
+    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+      <div>
+        <span class="etiqueta">Divulgación científica</span>
+        <h2 class="titulo-seccion" style="margin-bottom: 0;">Blog SIDESGOP</h2>
+      </div>
+      <!-- EDITAR: enlace al blog -->
+      <a href="#" style="font-size: 0.85rem; font-weight: 600; color: var(--verde-principal); font-family: 'Montserrat', sans-serif;">Ver todos los artículos →</a>
+    </div>
+    <div class="grid-3">
+      <!-- EDITAR: cada artículo -->
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="height: 160px; background: linear-gradient(135deg, var(--verde-claro), var(--verde-principal)); display: flex; align-items: center; justify-content: center; font-size: 3rem;">📊</div>
+        <div style="padding: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <span class="tag">Política Pública</span>
+            <span style="font-size: 0.75rem; color: var(--gris-texto);">15 May 2026</span>
+          </div>
+          <h3 style="font-size: 0.95rem; margin-bottom: 0.5rem;">Brechas económicas regionales en Colombia: análisis 2025</h3>
+          <p style="font-size: 0.83rem; margin-bottom: 1rem;">Exploramos cómo las asimetrías territoriales definen el acceso a oportunidades económicas en los 32 departamentos...</p>
+          <a href="#" style="font-size: 0.82rem; font-weight: 600; color: var(--verde-principal); font-family: 'Montserrat', sans-serif;">Leer más →</a>
+        </div>
+      </div>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="height: 160px; background: linear-gradient(135deg, var(--naranja-claro), var(--naranja)); display: flex; align-items: center; justify-content: center; font-size: 3rem;">📈</div>
+        <div style="padding: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <span class="tag tag-naranja">Coyuntura</span>
+            <span style="font-size: 0.75rem; color: var(--gris-texto);">08 May 2026</span>
+          </div>
+          <h3 style="font-size: 0.95rem; margin-bottom: 0.5rem;">Inflación y poder adquisitivo: lo que los datos del DANE revelan</h3>
+          <p style="font-size: 0.83rem; margin-bottom: 1rem;">Desglosamos los indicadores más recientes para entender el impacto real en los hogares colombianos...</p>
+          <a href="#" style="font-size: 0.82rem; font-weight: 600; color: var(--verde-principal); font-family: 'Montserrat', sans-serif;">Leer más →</a>
+        </div>
+      </div>
+      <div class="card" style="padding: 0; overflow: hidden;">
+        <div style="height: 160px; background: linear-gradient(135deg, var(--verde-claro), #a8c76b); display: flex; align-items: center; justify-content: center; font-size: 3rem;">🎓</div>
+        <div style="padding: 1.25rem;">
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <span class="tag">Investigación</span>
+            <span style="font-size: 0.75rem; color: var(--gris-texto);">01 May 2026</span>
+          </div>
+          <h3 style="font-size: 0.95rem; margin-bottom: 0.5rem;">Cómo hacer tu trabajo de grado con el semillero SIDESGOP</h3>
+          <p style="font-size: 0.83rem; margin-bottom: 1rem;">Paso a paso para vincularte como investigador formativo y certificar tu proyecto de grado con nosotros...</p>
+          <a href="#" style="font-size: 0.82rem; font-weight: 600; color: var(--verde-principal); font-family: 'Montserrat', sans-serif;">Leer más →</a>
+        </div>
+      </div>
+      <!-- AGREGAR MÁS: copia un bloque .card y pégalo aquí -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PODCAST
+     EDITAR: título, descripción, iframe de Spotify
+============================================================ -->
+<section class="seccion" style="background: var(--verde-oscuro); color: var(--blanco);">
+  <div class="container">
+    <div class="grid-2" style="align-items: center; gap: 3rem;">
+      <div>
+        <span class="etiqueta" style="color: var(--naranja); background: rgba(212,122,26,0.15); padding: 0.25rem 0.7rem; border-radius: 20px;">Podcast</span>
+        <!-- EDITAR: título y descripción -->
+        <h2 style="font-size: 1.8rem; font-weight: 700; margin: 1rem 0 1rem; color: var(--blanco);">Podcast POV</h2>
+        <p style="color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem;">
+          Conversaciones profundas sobre economía, territorio y política pública.
+          Disponible en Spotify, YouTube y todas las plataformas de podcast.
+        </p>
+        <!-- EDITAR: enlaces reales -->
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="#" class="btn btn-principal">Escuchar en Spotify</a>
+          <a href="#" class="btn" style="background: rgba(255,255,255,0.1); color: var(--blanco); border: 1px solid rgba(255,255,255,0.2);">Ver en YouTube</a>
+        </div>
+      </div>
+      <div>
+        <!-- REEMPLAZA este bloque con el iframe de Spotify:
+             1. Ve al episodio en Spotify
+             2. Clic en "..." → "Compartir" → "Insertar episodio"
+             3. Pega el iframe aquí -->
+        <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); border-radius: 16px; padding: 2rem; text-align: center;">
+          <div style="font-size: 3rem; margin-bottom: 1rem;">🎙️</div>
+          <!-- EDITAR: nombre del episodio -->
+          <div style="font-weight: 600; margin-bottom: 0.5rem;">Ep. 12 — Economía territorial y brechas digitales</div>
+          <div style="font-size: 0.82rem; color: rgba(255,255,255,0.6); margin-bottom: 1.25rem;">Con Prof. Marcela Useche · 52 min</div>
+          <div style="background: rgba(255,255,255,0.05); border-radius: 10px; padding: 1.5rem; color: rgba(255,255,255,0.4); font-size: 0.82rem;">
+            [ Pega aquí el iframe de Spotify ]
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONVOCATORIA
+     EDITAR: fecha, beneficios, requisitos, formulario
+============================================================ -->
+<section id="convocatoria" class="seccion seccion-blanca">
+  <div class="container">
+    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap;">
+      <span class="tag tag-naranja">🟢 Convocatoria Abierta</span>
+      <!-- EDITAR: fecha de cierre -->
+      <span style="font-size: 0.82rem; color: var(--gris-texto); font-family: 'Montserrat', sans-serif; font-weight: 600;">Cierre: 30 de junio de 2026</span>
+    </div>
+    <span class="etiqueta">Únete al semillero</span>
+    <!-- EDITAR: título y subtítulo -->
+    <h2 class="titulo-seccion">¿Quieres investigar con nosotros?</h2>
+    <p class="subtitulo-seccion">Buscamos estudiantes de la UNAD apasionados por las ciencias económicas y comprometidos con el impacto social.</p>
+    <div class="grid-2" style="gap: 3rem; align-items: flex-start;">
+      <div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--verde-oscuro); margin-bottom: 1rem;">¿Qué obtienes?</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem;">
+          <!-- EDITAR: cada beneficio -->
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--naranja); font-weight: 700; margin-top: 2px; flex-shrink: 0;">✓</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Certificación de investigación formativa válida para trabajo de grado</span></div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--naranja); font-weight: 700; margin-top: 2px; flex-shrink: 0;">✓</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Hasta 80 horas de proyección social certificadas por semestre</span></div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--naranja); font-weight: 700; margin-top: 2px; flex-shrink: 0;">✓</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Co-autoría en artículos y ponencias científicas</span></div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--naranja); font-weight: 700; margin-top: 2px; flex-shrink: 0;">✓</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Participación en el Podcast POV y producción de contenido digital</span></div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--naranja); font-weight: 700; margin-top: 2px; flex-shrink: 0;">✓</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Red de contactos académicos nacionales e internacionales</span></div>
+        </div>
+        <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--verde-oscuro); margin-bottom: 1rem;">Requisitos</h3>
+        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+          <!-- EDITAR: cada requisito -->
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--verde-principal); font-weight: 700; margin-top: 2px; flex-shrink: 0;">→</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Ser estudiante activo UNAD en ECACEN (mínimo semestre 3)</span></div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--verde-principal); font-weight: 700; margin-top: 2px; flex-shrink: 0;">→</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Promedio académico igual o superior a 3.5</span></div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--verde-principal); font-weight: 700; margin-top: 2px; flex-shrink: 0;">→</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Disponibilidad de 4 a 6 horas semanales para actividades virtuales</span></div>
+          <div style="display: flex; align-items: flex-start; gap: 0.75rem;"><span style="color: var(--verde-principal); font-weight: 700; margin-top: 2px; flex-shrink: 0;">→</span><span style="font-size: 0.9rem; color: var(--gris-texto);">Interés genuino en investigación científica y divulgación</span></div>
+        </div>
+      </div>
+      <div class="card" style="border-top: 4px solid var(--naranja);">
+        <h3 style="font-size: 1.05rem; color: var(--verde-oscuro); margin-bottom: 0.25rem;">Formulario de postulación</h3>
+        <p style="font-size: 0.82rem; color: var(--gris-texto); margin-bottom: 1.5rem;">Todos los campos son obligatorios.</p>
+        <!-- REEMPLAZA todo este formulario con el iframe de Google Forms:
+             En Google Forms → Enviar → icono <> → copia el iframe -->
+        <div class="form-grupo"><label class="form-label">Nombre completo</label><input type="text" class="form-input" placeholder="Ej: María González Ruiz"></div>
+        <div class="form-grupo"><label class="form-label">Correo institucional UNAD</label><input type="email" class="form-input" placeholder="nombre@unad.edu.co"></div>
+        <div class="grid-2" style="gap: 1rem;">
+          <div class="form-grupo"><label class="form-label">Programa académico</label><select class="form-input"><option value="">Selecciona</option><option>Administración de Empresas</option><option>Economía</option><option>Contaduría Pública</option><option>Ingeniería Industrial</option><option>Otro</option></select></div>
+          <div class="form-grupo"><label class="form-label">Semestre actual</label><select class="form-input"><option value="">Selecciona</option><option>3° semestre</option><option>4° semestre</option><option>5° semestre</option><option>6° o superior</option></select></div>
+        </div>
+        <div class="form-grupo"><label class="form-label">CEAD o zona UNAD</label><input type="text" class="form-input" placeholder="Ej: CEAD Bogotá, Medellín, etc."></div>
+        <div class="form-grupo"><label class="form-label">¿Por qué quieres unirte? (mín. 100 palabras)</label><textarea class="form-input" rows="4" placeholder="Cuéntanos tu motivación..."></textarea></div>
+        <div class="form-grupo"><label class="form-label">¿Cómo conociste el semillero?</label><select class="form-input"><option value="">Selecciona</option><option>TikTok / Instagram</option><option>WhatsApp / grupos</option><option>Recomendación de un compañero</option><option>Docente de ECACEN</option><option>Google / búsqueda web</option><option>Sitio web UNAD</option></select></div>
+        <!-- EDITAR: texto del botón -->
+        <button class="btn btn-principal" style="width: 100%; padding: 0.85rem; font-size: 0.95rem;">Enviar postulación →</button>
+        <p style="font-size: 0.78rem; color: var(--gris-texto); text-align: center; margin-top: 0.75rem;">Recibirás confirmación en tu correo en máximo 5 días hábiles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     INTEGRANTES
+     EDITAR: agrega o quita integrantes
+============================================================ -->
+<section class="seccion seccion-verde-claro">
+  <div class="container">
+    <span class="etiqueta">El equipo</span>
+    <h2 class="titulo-seccion">Nuestros integrantes</h2>
+    <p class="subtitulo-seccion">Conoce a las personas que hacen posible la investigación y divulgación científica de SIDESGOP.</p>
+    <div class="grid-4">
+      <!-- EDITAR: cada integrante. Para foto real reemplaza el div de iniciales por <img src="URL"> -->
+      <div class="card" style="text-align: center;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--verde-principal); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; font-weight: 700;">MG</div>
+        <div style="font-weight: 700; font-family: 'Montserrat', sans-serif; margin-bottom: 0.25rem;">María González</div>
+        <div style="font-size: 0.8rem; color: var(--naranja); font-weight: 600; margin-bottom: 0.25rem;">Directora</div>
+        <div style="font-size: 0.78rem; color: var(--gris-texto);">Administración de Empresas · 8vo sem.</div>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--naranja); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; font-weight: 700;">JR</div>
+        <div style="font-weight: 700; font-family: 'Montserrat', sans-serif; margin-bottom: 0.25rem;">Juan Rodríguez</div>
+        <div style="font-size: 0.8rem; color: var(--naranja); font-weight: 600; margin-bottom: 0.25rem;">Investigador</div>
+        <div style="font-size: 0.78rem; color: var(--gris-texto);">Economía · 6to sem.</div>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--verde-oscuro); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; font-weight: 700;">CL</div>
+        <div style="font-weight: 700; font-family: 'Montserrat', sans-serif; margin-bottom: 0.25rem;">Carlos López</div>
+        <div style="font-size: 0.8rem; color: var(--naranja); font-weight: 600; margin-bottom: 0.25rem;">Divulgación</div>
+        <div style="font-size: 0.78rem; color: var(--gris-texto);">Contaduría Pública · 5to sem.</div>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--verde-principal); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: white; font-weight: 700;">VP</div>
+        <div style="font-weight: 700; font-family: 'Montserrat', sans-serif; margin-bottom: 0.25rem;">Valentina Pérez</div>
+        <div style="font-size: 0.8rem; color: var(--naranja); font-weight: 600; margin-bottom: 0.25rem;">Contenidos</div>
+        <div style="font-size: 0.78rem; color: var(--gris-texto);">Economía · 4to sem.</div>
+      </div>
+      <!-- AGREGAR MÁS: copia un bloque .card y pégalo aquí -->
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     CONTACTO
+     EDITAR: correo, redes sociales
+============================================================ -->
+<section id="contacto" class="seccion seccion-blanca">
+  <div class="container">
+    <span class="etiqueta">¿Tienes dudas?</span>
+    <h2 class="titulo-seccion">Contáctanos</h2>
+    <p class="subtitulo-seccion">Estamos disponibles para responder tus preguntas sobre el semillero, alianzas o convocatorias.</p>
+    <div class="grid-2" style="gap: 3rem; align-items: flex-start;">
+      <div>
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: var(--verde-claro); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">✉️</div>
+            <div>
+              <div style="font-weight: 600; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; margin-bottom: 0.25rem;">Correo institucional</div>
+              <!-- EDITAR: correo real -->
+              <a href="mailto:sidesgop@unad.edu.co" style="color: var(--verde-principal); font-size: 0.9rem;">sidesgop@unad.edu.co</a>
+            </div>
+          </div>
+          <div style="display: flex; align-items: flex-start; gap: 1rem;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: var(--naranja-claro); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0;">📍</div>
+            <div>
+              <div style="font-weight: 600; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; margin-bottom: 0.25rem;">Modalidad</div>
+              <span style="color: var(--gris-texto); font-size: 0.9rem;">100% Virtual · UNAD Colombia</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 2rem;">
+          <div style="font-weight: 700; font-family: 'Montserrat', sans-serif; font-size: 0.9rem; color: var(--verde-oscuro); margin-bottom: 1rem;">Síguenos en redes</div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <!-- EDITAR: cada href con el link real -->
+            <a href="#" class="btn btn-secundario" style="padding: 0.5rem 1rem; font-size: 0.82rem;">🎵 TikTok</a>
+            <a href="#" class="btn btn-secundario" style="padding: 0.5rem 1rem; font-size: 0.82rem;">📸 Instagram</a>
+            <a href="#" class="btn btn-secundario" style="padding: 0.5rem 1rem; font-size: 0.82rem;">▶ YouTube</a>
+            <a href="#" class="btn btn-secundario" style="padding: 0.5rem 1rem; font-size: 0.82rem;">🎙️ Spotify</a>
+          </div>
+        </div>
+        <div class="card" style="margin-top: 2rem; border-left: 4px solid var(--verde-principal); border-radius: 0 12px 12px 0;">
+          <div style="font-weight: 700; font-family: 'Montserrat', sans-serif; margin-bottom: 0.5rem; color: var(--verde-oscuro);">Newsletter mensual</div>
+          <p style="font-size: 0.85rem; color: var(--gris-texto); margin-bottom: 1rem;">Recibe ciencia económica accesible y novedades del semillero cada mes.</p>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="email" class="form-input" placeholder="tucorreo@email.com" style="flex: 1;">
+            <button class="btn btn-principal" style="padding: 0.7rem 1rem; white-space: nowrap;">Suscribirse</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3 style="font-size: 1rem; color: var(--verde-oscuro); margin-bottom: 1.25rem;">Envíanos un mensaje</h3>
+        <div class="form-grupo"><label class="form-label">Nombre</label><input type="text" class="form-input" placeholder="Tu nombre completo"></div>
+        <div class="form-grupo"><label class="form-label">Correo electrónico</label><input type="email" class="form-input" placeholder="tucorreo@email.com"></div>
+        <div class="form-grupo"><label class="form-label">Tipo de consulta</label>
+          <select class="form-input"><option value="">Selecciona el motivo</option><option>Quiero unirme al semillero</option><option>Propuesta de alianza / convenio</option><option>Prensa o medios</option><option>Investigador externo</option><option>Otro</option></select>
+        </div>
+        <div class="form-grupo"><label class="form-label">Mensaje</label><textarea class="form-input" rows="5" placeholder="Cuéntanos en qué podemos ayudarte..."></textarea></div>
+        <button class="btn btn-principal" style="width: 100%;">Enviar mensaje →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     FOOTER
+     EDITAR: texto institucional, enlaces, redes
+============================================================ -->
+<footer style="background: var(--verde-oscuro); color: var(--blanco); padding: 3rem 0 1.5rem;">
+  <div class="container">
+    <div class="grid-3" style="margin-bottom: 2.5rem;">
+      <div>
+        <!-- EDITAR: nombre en el footer -->
+        <div style="font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 1.3rem; margin-bottom: 0.25rem;">
+          SIDE<span style="color: var(--naranja);">SGOP</span>
+        </div>
+        <div style="font-size: 0.7rem; font-family: 'Montserrat', sans-serif; letter-spacing: 0.08em; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-bottom: 0.75rem;">Semillero de Investigación · ECACEN · UNAD</div>
+        <p style="font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.7;">Ciencia con rigor, narrativas con impacto.</p>
+      </div>
+      <div>
+        <div style="font-weight: 700; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; margin-bottom: 1rem; color: var(--naranja);">NAVEGACIÓN</div>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+          <!-- EDITAR: enlaces -->
+          <li><a href="#inicio"       style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">Inicio</a></li>
+          <li><a href="#nosotros"     style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">Nosotros</a></li>
+          <li><a href="#lineas"       style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">Líneas de investigación</a></li>
+          <li><a href="#proyectos"    style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">Proyectos</a></li>
+          <li><a href="#blog"         style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">Blog</a></li>
+          <li><a href="#convocatoria" style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">Convocatoria</a></li>
+          <li><a href="#contacto"     style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">Contacto</a></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-weight: 700; font-family: 'Montserrat', sans-serif; font-size: 0.85rem; margin-bottom: 1rem; color: var(--naranja);">ENCUÉNTRANOS</div>
+        <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+          <!-- EDITAR: cada href con el link real -->
+          <a href="#" style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">🎵 TikTok — @sidesgop.ecacen</a>
+          <a href="#" style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">📸 Instagram — @sidesgop.unad</a>
+          <a href="#" style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">▶ YouTube — SIDESGOP ECACEN</a>
+          <a href="#" style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">🎙️ Spotify — Podcast POV</a>
+          <a href="mailto:sidesgop@unad.edu.co" style="font-size: 0.85rem; color: rgba(255,255,255,0.7);">✉️ sidesgop@unad.edu.co</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+      <!-- EDITAR: texto de derechos -->
+      <span style="font-size: 0.78rem; color: rgba(255,255,255,0.4);">© 2026 SIDESGOP · Escuela ECACEN · UNAD · Todos los derechos reservados</span>
+      <span style="font-size: 0.78rem; color: rgba(255,255,255,0.4);">Alojado en Google Sites UNAD · Costo cero</span>
+    </div>
+  </div>
+</footer>
+
+
+</body>
+</html>
